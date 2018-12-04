@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JAVA程序设计,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言：作为一个java程序员，一直都没有写过关于java的分享，今天就在这里跟大家分享一下对于在java学习中的一些思想  面向对象 大家都知道JAVA是一门面向对象的语言（OOP），我们再程序设计中会把现实世界中的种种事物抽象成一个对象到程序中去，从而让我们能够更加方便快捷高效的开发出相应功能   DAO DAO即数据访问对象(Data Access Object DAO)设计模式，我们最常见">
+<meta name="keywords" content="JAVA程序设计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="程序设计的一些思想">
+<meta property="og:url" content="http://leishunyu.com/2018/05/07/2018-05-07-抽象设计/index.html">
+<meta property="og:site_name" content="maple">
+<meta property="og:description" content="前言：作为一个java程序员，一直都没有写过关于java的分享，今天就在这里跟大家分享一下对于在java学习中的一些思想  面向对象 大家都知道JAVA是一门面向对象的语言（OOP），我们再程序设计中会把现实世界中的种种事物抽象成一个对象到程序中去，从而让我们能够更加方便快捷高效的开发出相应功能   DAO DAO即数据访问对象(Data Access Object DAO)设计模式，我们最常见">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-12-04T10:59:43.834Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="程序设计的一些思想">
+<meta name="twitter:description" content="前言：作为一个java程序员，一直都没有写过关于java的分享，今天就在这里跟大家分享一下对于在java学习中的一些思想  面向对象 大家都知道JAVA是一门面向对象的语言（OOP），我们再程序设计中会把现实世界中的种种事物抽象成一个对象到程序中去，从而让我们能够更加方便快捷高效的开发出相应功能   DAO DAO即数据访问对象(Data Access Object DAO)设计模式，我们最常见">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://leishunyu.com/2018/05/07/2018-05-07-抽象设计/">
+
+
+
+
+
+  <title>程序设计的一些思想 | maple</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">maple</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leishunyu.com/2018/05/07/2018-05-07-抽象设计/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="怀风">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="maple">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">程序设计的一些思想</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-07T00:00:00+08:00">
+                2018-05-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVA/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<p>前言：作为一个java程序员，一直都没有写过关于java的分享，今天就在这里跟大家分享一下对于在java学习中的一些思想</p>
+<hr>
+<h2 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h2><blockquote>
+<p>大家都知道JAVA是一门面向对象的语言（OOP），我们再程序设计中会把现实世界中的种种事物抽象成一个对象到程序中去，从而让我们能够更加方便快捷高效的开发出相应功能</p>
+</blockquote>
+<hr>
+<h2 id="DAO"><a href="#DAO" class="headerlink" title="DAO"></a>DAO</h2><blockquote>
+<p>DAO即数据访问对象(Data Access Object DAO)设计模式，我们最常见的就是JAVA系统操作数据库，因为JAVA系统是无法直接对数据库进行操作，所以就需要引入JDBC作为数据库系统操作的基础，JDBC也是大家最常见的DAO</p>
+</blockquote>
+<hr>
+<h2 id="异构系统的抽象"><a href="#异构系统的抽象" class="headerlink" title="异构系统的抽象"></a>异构系统的抽象</h2><blockquote>
+<p>大家都知道，单纯的JAVA程序是无法对其它系统进行操作的，这里可以把不能直接操作的系统称之为异构系统，我们要想同这些异构系统进行操作，就需要引入相应的jar包，操作数据库就是JDBC，操作消息队列就是JMS，操作Redis就是Jedis，等等….这点大家应该都了解，但是不知道大家是否想过把这类jar做一个归类，其实他们都可以算是DAO，因为都属于同异构系统进行交互，而这些jar就是对相应系统在JAVA程序中的一种抽象，来在JAVA系统当中模拟出对于相应异构系统的一些操作</p>
+</blockquote>
+<h2 id="为什么要这么思考"><a href="#为什么要这么思考" class="headerlink" title="为什么要这么思考"></a>为什么要这么思考</h2><blockquote>
+<p>在程序设计中，系统(接口)的隔离是必要的，以此保证业务（代码）的互相依赖，假如说一个程序中JAVA代码和SQL代码完全混合在一起，那么想必一旦程序出现问题，在进行修改，那真的可能改死人，那么如果说一个系统中有N种系统的集成和N中变成语言的集合，那么这个系统大概写好后就改不动了，所以为了保证系统的可维护性，可拓展性，系统隔离是必要的，其实这也是我们常说的业务的解耦对于系统的一种实现，如何在保证系统隔离的同时，又能更方便快捷的集成其它系统呢，那么就出现了DAO，作为程序员，现在市面上流行的框架，中间件很多很多，我们需要对相应的框架以及中间件做一个很清晰的层级划分，清楚的了解到那一部分框架属于整个架构中的哪个模块，才能让我们更快的更有效的更深入的掌握该技术，JAVA是一门面向对象的语言，如果能够清楚的理清我们要学习的东西属于整个系统的那个部分，我们就可以通过之前学习掌握的类似的部分，进行理解，就好比我之前会用JDBC，那么我了解到Redis是属于DAO层，那么我就可以用理解JDBC的形式来理解Jedis，首先要获取一个连接，然后进行…..操作，最后关闭连接，类似的例子还有很多，需要我们再学习中一点点发现</p>
+</blockquote>
+<p><strong>这些些对于程序设计的想法，其实对于所有面向对象语言都是一样的，希望能够大家带来一些帮助</strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JAVA程序设计/" rel="tag"># JAVA程序设计</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/07/2018-04-07-sql/" rel="next" title="数据库索引优化">
+                <i class="fa fa-chevron-left"></i> 数据库索引优化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">怀风</p>
+              <p class="site-description motion-element" itemprop="description">javaer</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象"><span class="nav-number">1.</span> <span class="nav-text">面向对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DAO"><span class="nav-number">2.</span> <span class="nav-text">DAO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异构系统的抽象"><span class="nav-number">3.</span> <span class="nav-text">异构系统的抽象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要这么思考"><span class="nav-number">4.</span> <span class="nav-text">为什么要这么思考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">怀风</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
