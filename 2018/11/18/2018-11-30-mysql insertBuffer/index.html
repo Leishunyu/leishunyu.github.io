@@ -1,0 +1,73 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Mysql Insert Buffer"><meta name="keywords" content="MYSQL"><meta name="author" content="怀风,undefined"><meta name="copyright" content="怀风"><title>Mysql Insert Buffer | 我的梨子啊</title><link rel="shortcut icon" href="/my-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.5.6"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css?version=1.5.6"><link rel="dns-prefetch" href="https://cdn.staticfile.org"><link rel="dns-prefetch" href="https://cdn.bootcss.com"><link rel="dns-prefetch" href="https://creativecommons.org"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="http://img4.duitang.com/uploads/item/201602/06/20160206025901_JtzEC.thumb.700_0.jpeg"></div><div class="author-info__name text-center">怀风</div><div class="author-info__description text-center">javaer</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">5</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">4</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">5</span></a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container" style="background-image: url(true)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">我的梨子啊</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/archives/">首页</a><a class="site-page" href="/tags">标签</a><a class="site-page" href="/categories">分类</a></span></div><div id="post-info"><div id="post-title">Mysql Insert Buffer</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2018-11-18</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/数据库原理/">数据库原理</a></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><p>#Insert Buffer </p>
+<p><strong>insert buffer 的架构</strong></p>
+<blockquote>
+<p><img src="https://github.com/Leishunyu/leishunyu.github.io/blob/master/img/%E5%9B%BE%E7%89%87.png" alt=""><br><strong>什么是insert Buffer</strong></p>
+<ul>
+<li>用来提升插入性能(先插入缓存,最后合并,避免非顺序插入造成磁盘离散查询,性能很差)</li>
+<li>表的主键是id，id列式自增长的，即当执行插入操作时，id列会自动增长，页中行记录按id顺序存放，不需要随机读取其它页的数据。因此，在这样的情况下（即聚集索引），插入操作效率很高。(不过对于UUID这类型的主键插入也可能是离散的,所以不推荐使用UUID做主键)</li>
+<li>除了主键聚合索引外，还产生了一个name列的辅助索引，对于该非聚集索引来说，叶子节点的插入不再有序，这时就需要离散访问非聚集索引页，插入性能变低。</li>
+</ul>
+</blockquote>
+<p><strong>什么情况下使用insert Buffer</strong></p>
+<blockquote>
+<ul>
+<li>索引是辅助索引</li>
+<li>索引是唯一的(如果索引是唯一的,那么插入时需要检验索引的唯一性,还是会直接进行离散IO查询.导致insert Buffer失效)</li>
+</ul>
+</blockquote>
+<p><strong>什么是change Buffer</strong></p>
+<blockquote>
+<ul>
+<li>类似insert buffer,针对于更新和删除操作</li>
+</ul>
+<blockquote>
+<ul>
+<li>1.缓存中标记删除</li>
+<li>2.文件中真正删除</li>
+</ul>
+</blockquote>
+</blockquote>
+<p><strong>insert Buffer内部实现</strong></p>
+<blockquote>
+<p>insert buffer的数据结构是一棵B+树。在MySQL4.1之前的版本中每张表都有一棵insert buffer B+树。而在现在的版本中，全局只有一棵insert buffer B+树，负责对所有的表的辅助索引进行 insert buffer。这棵B+树存放在共享表空间中，默认也就是ibdata1中。因此，试图通过独立表空间ibd文件恢复表中数据时，往往会导致check table 失败。这是因为表的辅助索引中的数据可能还在insert buffer中，也就是共享表空间中。所以通过idb文件进行恢复后，还需要进行repair table 操作来重建表上所有的辅助索引。</p>
+</blockquote>
+<blockquote>
+<p>insert buffer是一棵B+树，因此其也由叶子节点和非叶子节点组成。非叶子节点存放的是查询的search key（键值）。其构造包括三个字段：space | marker | offset|</p>
+</blockquote>
+<blockquote>
+<p>search key一共占9字节，其中space占4字节，marker占1字节、offset占4字节。space表示待插入记录所在的表空间id，在InnoDB存储引擎中，每个表有一个唯一的space id，可以通过space id查询得知是哪张表。marker是用来兼容老版本的insert buffer。offset表示页所在的偏移量。</p>
+</blockquote>
+<blockquote>
+<p>当一个辅助索引需要插入到页（space， offset）时，如果这个页不在缓冲池中，那么InnoDB存储引擎首先根据上述规则构造一个search key，接下来查询insert buffer这棵B+树，然后再将这条记录插入到insert buffer B+树的叶子节点中。</p>
+</blockquote>
+<blockquote>
+<p>对于插入到insert buffer B+树叶子节点的记录，需要根据如下规则进行构造：space | marker | offset | metadata | secondary index record|</p>
+</blockquote>
+<blockquote>
+<p>启用insert buffer索引后，辅助索引页（space、page_no）中的记录可能被插入到insert buffer B+树中，所以为了保证每次merge insert buffer页必须成功，还需要有一个特殊的页来标记每个辅助索引页（space、page_no）的可用空间。这个页的类型为insert buffer bitmap。</p>
+</blockquote>
+<p><strong>何时将缓存合并到文件中去</strong></p>
+<blockquote>
+<ul>
+<li>辅助索引页被读取到缓冲池时；(索引页被查询的时候,相当于多次插入修改删除的合并)</li>
+<li>insert buffer bitmap页追踪到该辅助索引页已无可用空间时(缓存池不够)</li>
+<li>master thread(每10S或者每秒)</li>
+</ul>
+</blockquote>
+<p><strong>insert buffer带来的问题</strong></p>
+<blockquote>
+<ul>
+<li>可能导致数据库宕机后实例恢复时间变长。如果应用程序执行大量的插入和更新操作，且涉及非唯一的聚集索引，一旦出现宕机，这时就有大量内存中的插入缓冲区数据没有合并至索引页中，导致实例恢复时间会很长。</li>
+<li>在写密集的情况下，插入缓冲会占用过多的缓冲池内存（innodb_buffer_pool），默认情况下最大可以占用1/2，这在实际应用中会带来一定的问题。</li>
+</ul>
+</blockquote>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">怀风</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://blog.leishunyu.com/2018/11/18/2018-11-30-mysql insertBuffer/">http://blog.leishunyu.com/2018/11/18/2018-11-30-mysql insertBuffer/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://blog.leishunyu.com" target="_blank">我的梨子啊</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/MYSQL/">MYSQL</a></div><div class="social-share"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script><nav id="pagination"><div class="prev-post pull-left"><a href="/2018/12/05/2018-12-05-Dubbo SPI 机制/"><i class="fa fa-chevron-left">  </i><span>Dubbo SPI 机制</span></a></div><div class="next-post pull-right"><a href="/2018/05/07/2018-05-07-抽象设计/"><span>程序设计的一些思想</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2018 By 怀风</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file-o"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="/js/third-party/anime.min.js"></script><script src="/js/third-party/jquery.min.js"></script><script src="/js/third-party/jquery.fancybox.min.js"></script><script src="/js/third-party/velocity.min.js"></script><script src="/js/third-party/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.5.6"></script><script src="/js/fancybox.js?version=1.5.6"></script><script src="/js/sidebar.js?version=1.5.6"></script><script src="/js/copy.js?version=1.5.6"></script><script src="/js/fireworks.js?version=1.5.6"></script><script src="/js/transition.js?version=1.5.6"></script><script src="/js/scroll.js?version=1.5.6"></script><script src="/js/head.js?version=1.5.6"></script></body></html>
