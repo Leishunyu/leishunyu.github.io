@@ -7,7 +7,142 @@
     error: '复制错误',
     noSupport: '浏览器不支持'
   }
-} </script></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="author-info"><div class="author-info__avatar text-center"><img src="http://img4.duitang.com/uploads/item/201602/06/20160206025901_JtzEC.thumb.700_0.jpeg"></div><div class="author-info__name text-center">怀风</div><div class="author-info__description text-center">javaer</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">3</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">3</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">3</span></a></div></div></div><nav class="no-bg" id="nav" style="background-image: url(true)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">maple</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/archives/">首页</a><a class="site-page" href="/tags">标签</a><a class="site-page" href="/categories">分类</a></span></div><div id="site-info"><div id="site-title">maple</div><div id="site-sub-title"></div><div id="site-social-icons"> <a class="social-icon" href="https://github.com/Leishunyu/" target="_blank"><i class="fa fa-github"></i></a></div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><div class="recent-post-item article-container"><a class="article-title" href="/2018/05/07/2018-05-07-抽象设计/">程序设计的一些思想</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2018-05-07</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JAVA/">JAVA</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JAVA程序设计/">JAVA程序设计</a></span><div class="content"><hr>
+} </script></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="author-info"><div class="author-info__avatar text-center"><img src="http://img4.duitang.com/uploads/item/201602/06/20160206025901_JtzEC.thumb.700_0.jpeg"></div><div class="author-info__name text-center">怀风</div><div class="author-info__description text-center">javaer</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">5</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">4</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">5</span></a></div></div></div><nav class="no-bg" id="nav" style="background-image: url(true)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">maple</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/archives/">首页</a><a class="site-page" href="/tags">标签</a><a class="site-page" href="/categories">分类</a></span></div><div id="site-info"><div id="site-title">maple</div><div id="site-sub-title"></div><div id="site-social-icons"> <a class="social-icon" href="https://github.com/Leishunyu/" target="_blank"><i class="fa fa-github"></i></a></div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><div class="recent-post-item article-container"><a class="article-title" href="/2018/12/05/2018-12-05-Dubbo SPI 机制/">Dubbo SPI 机制</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2018-12-05</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/DUBBO/">DUBBO</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/DUBBO/">DUBBO</a></span><div class="content"><h1 id="Dubbo-SPI-机制"><a href="#Dubbo-SPI-机制" class="headerlink" title="Dubbo SPI 机制"></a>Dubbo SPI 机制</h1><h2 id="什么是SPI"><a href="#什么是SPI" class="headerlink" title="什么是SPI"></a>什么是SPI</h2><blockquote>
+<ul>
+<li>SPI 全称为 (Service Provider Interface) ,是JDK内置的一种服务提供发现机制。 目前有不少框架用它来做服务的扩展发现， 简单来说，它就是一种动态替换发现的机制， 举个例子来说， 有个接口，想运行时动态的给它添加实现，你只需要添加一个实现。</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>具体是在JAR包的”src/META-INF/services/“目录下建立一个文件，文件名是接口的全限定名，文件的内容可以有多行，每行都是该接口对应的具体实现类的全限定名.</li>
+</ul>
+</blockquote>
+<h2 id="在哪些地方使用SPI"><a href="#在哪些地方使用SPI" class="headerlink" title="在哪些地方使用SPI"></a>在哪些地方使用SPI</h2><blockquote>
+<ul>
+<li>不同厂商的JDBC驱动</li>
+<li>Java的日志框架等等</li>
+</ul>
+</blockquote>
+<h2 id="JDK-SPI示例"><a href="#JDK-SPI示例" class="headerlink" title="JDK SPI示例"></a>JDK SPI示例</h2><p>定义一个接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TestService</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sayHello</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编写该接口的多个实现</p>
+<ul>
+<li>实现1</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PresellService</span> <span class="keyword">implements</span> <span class="title">TestService</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"test presell"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>实现2</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PresellService</span> <span class="keyword">implements</span> <span class="title">TestService</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"test presell"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在META/services下面新建文件 名为接口完整路径 配置该接口的实现</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">com.presell.dubbo.spi.java.spi.impl.HelloService</span><br><span class="line">com.presell.dubbo.spi.java.spi.impl.PresellService</span><br></pre></td></tr></table></figure>
+<ul>
+<li>运行</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ServiceLoader&lt;TestService&gt; services = ServiceLoader.load(TestService.class);</span><br><span class="line">        <span class="comment">//获取迭代器</span></span><br><span class="line">        Iterator&lt;TestService&gt; driversIterator = services.iterator();</span><br><span class="line">        <span class="comment">//遍历所有的驱动实现</span></span><br><span class="line">        <span class="keyword">while</span>(driversIterator.hasNext()) &#123;</span><br><span class="line">            driversIterator.next().sayHello();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>运行结果</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">test hello</span><br><span class="line">test presell</span><br></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>可以看到通过JDK内置SPI 可以将配置的两个实现类都执行了 此处可以根据自己的需求来进行配置 对于程序是无入侵的</li>
+</ul>
+</blockquote>
+<h2 id="JDK-SPI的实现原理"><a href="#JDK-SPI的实现原理" class="headerlink" title="JDK SPI的实现原理"></a>JDK SPI的实现原理</h2><ul>
+<li>依赖ServiceLoader</li>
+<li>根据ServiceLoader 简单地画了一个执行图<br><img src="img/java-spi.png" alt=""></li>
+</ul>
+<h2 id="JDK-SPI的不足"><a href="#JDK-SPI的不足" class="headerlink" title="JDK SPI的不足"></a>JDK SPI的不足</h2><ul>
+<li>查找一个具体的实现需要遍历查找，耗时；</li>
+<li>Collection相较于Map差的地方，map可以直接根据key来获取具体的实现,Dubbo SPI在此基础上做了优化</li>
+<li>每个类都要实现资源浪费</li>
+</ul>
+<h2 id="Dubbo-SPI"><a href="#Dubbo-SPI" class="headerlink" title="Dubbo SPI"></a>Dubbo SPI</h2><ul>
+<li>JDK标准的SPI会一次性实例化所有实现,如果有的拓展不需要既浪费资源,又很耗时</li>
+<li>如果扩展点加载失败，连扩展点的名称都拿不到了。比如：JDK标准的ScriptEngine，通过getName();获取脚本类型的名称，但如果RubyScriptEngine因为所依赖的jruby.jar不存在，导致RubyScriptEngine类加载失败，这个失败原因被吃掉了，和ruby对应不起来，当用户执行ruby脚本时，会报不支持ruby，而不是真正失败的原因。</li>
+<li>增加了对扩展点IoC和AOP的支持</li>
+<li>采用ConcurrentMap做缓存,/META-INF/dubbo/中配置文件以键值对形式存储,便于加载</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dubbo=com.presell.dubbo.spi.dubbo.spi.TestDubbo</span><br><span class="line">spring=com.presell.dubbo.spi.dubbo.spi.TestSpring</span><br><span class="line">world=com.presell.dubbo.spi.dubbo.spi.TestWorld</span><br></pre></td></tr></table></figure>
+<h2 id="Dubbo-SPI的核心类"><a href="#Dubbo-SPI的核心类" class="headerlink" title="Dubbo SPI的核心类"></a>Dubbo SPI的核心类</h2><ul>
+<li>要想对Dubbo SPI机制有个深入的了解 需要仔细阅读源码 这里列举几个核心的类</li>
+<li>ExtensionLoader SPI核心加载器</li>
+<li>SPI 用于标记是否是SPI接口</li>
+<li>Adaptive 用于标记是否是SPI的自适应实现类/方法</li>
+<li>Activate 用于标记是否是可以激活的实现类/方法 用于对过滤和分组</li>
+<li>Holder类 对于要加载的类做一层装饰,保证线程安全</li>
+</ul>
+<h2 id="Dubbo-SPI-执行流程"><a href="#Dubbo-SPI-执行流程" class="headerlink" title="Dubbo SPI 执行流程"></a>Dubbo SPI 执行流程</h2><ul>
+<li>由于ExtensionLoader中执行比较绕,这里根据ExtensionLoader的执行流程画了一个流程图供大家参考,具体信息还需要大家根据自己跟进源码,进一步深入理解</li>
+</ul>
+<p><img src="img/dubbo-spi.png" alt=""></p>
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2018/11/18/2018-11-30-mysql insertBuffer/">Mysql Insert Buffer</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2018-11-18</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/数据库原理/">数据库原理</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/MYSQL/">MYSQL</a></span><div class="content"><p>#Insert Buffer </p>
+<p><strong>insert buffer 的架构</strong></p>
+<blockquote>
+<p><img src="图片.png" alt=""><br><strong>什么是insert Buffer</strong></p>
+<ul>
+<li>用来提升插入性能(先插入缓存,最后合并,避免非顺序插入造成磁盘离散查询,性能很差)</li>
+<li>表的主键是id，id列式自增长的，即当执行插入操作时，id列会自动增长，页中行记录按id顺序存放，不需要随机读取其它页的数据。因此，在这样的情况下（即聚集索引），插入操作效率很高。(不过对于UUID这类型的主键插入也可能是离散的,所以不推荐使用UUID做主键)</li>
+<li>除了主键聚合索引外，还产生了一个name列的辅助索引，对于该非聚集索引来说，叶子节点的插入不再有序，这时就需要离散访问非聚集索引页，插入性能变低。</li>
+</ul>
+</blockquote>
+<p><strong>什么情况下使用insert Buffer</strong></p>
+<blockquote>
+<ul>
+<li>索引是辅助索引</li>
+<li>索引是唯一的(如果索引是唯一的,那么插入时需要检验索引的唯一性,还是会直接进行离散IO查询.导致insert Buffer失效)</li>
+</ul>
+</blockquote>
+<p><strong>什么是change Buffer</strong></p>
+<blockquote>
+<ul>
+<li>类似insert buffer,针对于更新和删除操作</li>
+</ul>
+<blockquote>
+<ul>
+<li>1.缓存中标记删除</li>
+<li>2.文件中真正删除</li>
+</ul>
+</blockquote>
+</blockquote>
+<p><strong>insert Buffer内部实现</strong></p>
+<blockquote>
+<p>insert buffer的数据结构是一棵B+树。在MySQL4.1之前的版本中每张表都有一棵insert buffer B+树。而在现在的版本中，全局只有一棵insert buffer B+树，负责对所有的表的辅助索引进行 insert buffer。这棵B+树存放在共享表空间中，默认也就是ibdata1中。因此，试图通过独立表空间ibd文件恢复表中数据时，往往会导致check table 失败。这是因为表的辅助索引中的数据可能还在insert buffer中，也就是共享表空间中。所以通过idb文件进行恢复后，还需要进行repair table 操作来重建表上所有的辅助索引。</p>
+</blockquote>
+<blockquote>
+<p>insert buffer是一棵B+树，因此其也由叶子节点和非叶子节点组成。非叶子节点存放的是查询的search key（键值）。其构造包括三个字段：space | marker | offset|</p>
+</blockquote>
+<blockquote>
+<p>search key一共占9字节，其中space占4字节，marker占1字节、offset占4字节。space表示待插入记录所在的表空间id，在InnoDB存储引擎中，每个表有一个唯一的space id，可以通过space id查询得知是哪张表。marker是用来兼容老版本的insert buffer。offset表示页所在的偏移量。</p>
+</blockquote>
+<blockquote>
+<p>当一个辅助索引需要插入到页（space， offset）时，如果这个页不在缓冲池中，那么InnoDB存储引擎首先根据上述规则构造一个search key，接下来查询insert buffer这棵B+树，然后再将这条记录插入到insert buffer B+树的叶子节点中。</p>
+</blockquote>
+<blockquote>
+<p>对于插入到insert buffer B+树叶子节点的记录，需要根据如下规则进行构造：space | marker | offset | metadata | secondary index record|</p>
+</blockquote>
+<blockquote>
+<p>启用insert buffer索引后，辅助索引页（space、page_no）中的记录可能被插入到insert buffer B+树中，所以为了保证每次merge insert buffer页必须成功，还需要有一个特殊的页来标记每个辅助索引页（space、page_no）的可用空间。这个页的类型为insert buffer bitmap。</p>
+</blockquote>
+<p><strong>何时将缓存合并到文件中去</strong></p>
+<blockquote>
+<ul>
+<li>辅助索引页被读取到缓冲池时；(索引页被查询的时候,相当于多次插入修改删除的合并)</li>
+<li>insert buffer bitmap页追踪到该辅助索引页已无可用空间时(缓存池不够)</li>
+<li>master thread(每10S或者每秒)</li>
+</ul>
+</blockquote>
+<p><strong>insert buffer带来的问题</strong></p>
+<blockquote>
+<ul>
+<li>可能导致数据库宕机后实例恢复时间变长。如果应用程序执行大量的插入和更新操作，且涉及非唯一的聚集索引，一旦出现宕机，这时就有大量内存中的插入缓冲区数据没有合并至索引页中，导致实例恢复时间会很长。</li>
+<li>在写密集的情况下，插入缓冲会占用过多的缓冲池内存（innodb_buffer_pool），默认情况下最大可以占用1/2，这在实际应用中会带来一定的问题。</li>
+</ul>
+</blockquote>
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2018/05/07/2018-05-07-抽象设计/">程序设计的一些思想</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2018-05-07</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JAVA/">JAVA</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JAVA/">JAVA</a></span><div class="content"><hr>
 <p>前言：作为一个java程序员，一直都没有写过关于java的分享，今天就在这里跟大家分享一下对于在java学习中的一些思想</p>
 <hr>
 <h2 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h2><blockquote>
@@ -25,7 +160,7 @@
 <p>在程序设计中，系统(接口)的隔离是必要的，以此保证业务（代码）的互相依赖，假如说一个程序中JAVA代码和SQL代码完全混合在一起，那么想必一旦程序出现问题，在进行修改，那真的可能改死人，那么如果说一个系统中有N种系统的集成和N中变成语言的集合，那么这个系统大概写好后就改不动了，所以为了保证系统的可维护性，可拓展性，系统隔离是必要的，其实这也是我们常说的业务的解耦对于系统的一种实现，如何在保证系统隔离的同时，又能更方便快捷的集成其它系统呢，那么就出现了DAO，作为程序员，现在市面上流行的框架，中间件很多很多，我们需要对相应的框架以及中间件做一个很清晰的层级划分，清楚的了解到那一部分框架属于整个架构中的哪个模块，才能让我们更快的更有效的更深入的掌握该技术，JAVA是一门面向对象的语言，如果能够清楚的理清我们要学习的东西属于整个系统的那个部分，我们就可以通过之前学习掌握的类似的部分，进行理解，就好比我之前会用JDBC，那么我了解到Redis是属于DAO层，那么我就可以用理解JDBC的形式来理解Jedis，首先要获取一个连接，然后进行…..操作，最后关闭连接，类似的例子还有很多，需要我们再学习中一点点发现</p>
 </blockquote>
 <p><strong>这些些对于程序设计的想法，其实对于所有面向对象语言都是一样的，希望能够大家带来一些帮助</strong></p>
-</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2018/04/07/2018-04-07-sql/">数据库索引优化</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2018-04-07</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/数据库优化/">数据库优化</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/数据库优化/">数据库优化</a></span><div class="content"><hr>
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2018/04/07/2018-04-07-sql/">数据库索引优化</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2018-04-07</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/数据库优化/">数据库优化</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/MYSQL/">MYSQL</a></span><div class="content"><hr>
 <p>前言：最近由于项目数据量巨增，对于数据库压力增大，需要从多方面对数据库进行调优，这里就从索引来给大家做下简单分享</p>
 <hr>
 <h2 id="什么是索引-Index"><a href="#什么是索引-Index" class="headerlink" title="什么是索引(Index)"></a>什么是索引(Index)</h2><blockquote>
