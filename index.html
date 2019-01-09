@@ -7,8 +7,7 @@
     error: '复制错误',
     noSupport: '浏览器不支持'
   }
-} </script></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="author-info"><div class="author-info__avatar text-center"><img src="http://img4.duitang.com/uploads/item/201602/06/20160206025901_JtzEC.thumb.700_0.jpeg"></div><div class="author-info__name text-center">怀风</div><div class="author-info__description text-center">javaer</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">9</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">5</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">6</span></a></div></div></div><nav class="no-bg" id="nav" style="background-image: url(true)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">我的梨子啊</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/archives/">首页</a><a class="site-page" href="/tags">标签</a><a class="site-page" href="/categories">分类</a></span></div><div id="site-info"><div id="site-title">我的梨子啊</div><div id="site-sub-title">那些疯狂到以为自己能够改变世界的人才能真正改变世界</div><div id="site-social-icons"> <a class="social-icon" href="https://github.com/Leishunyu/" target="_blank"><i class="fa fa-github"></i></a><a class="social-icon" href="https://weibo.com/u/2394913967" target="_blank"><i class="fa fa-weibo"></i></a></div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><div class="recent-post-item article-container"><a class="article-title" href="/2019/01/09/2019-01-09-jvm学习笔记/">JVM学习笔记(持续更新)</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2019-01-09</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JVM/">JVM</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JVM/">JVM</a></span><div class="content"><p>##JVM:</p>
-<ul>
+} </script></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="author-info"><div class="author-info__avatar text-center"><img src="http://img4.duitang.com/uploads/item/201602/06/20160206025901_JtzEC.thumb.700_0.jpeg"></div><div class="author-info__name text-center">怀风</div><div class="author-info__description text-center">javaer</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">9</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">5</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">6</span></a></div></div></div><nav class="no-bg" id="nav" style="background-image: url(true)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">我的梨子啊</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/archives/">首页</a><a class="site-page" href="/tags">标签</a><a class="site-page" href="/categories">分类</a></span></div><div id="site-info"><div id="site-title">我的梨子啊</div><div id="site-sub-title">那些疯狂到以为自己能够改变世界的人才能真正改变世界</div><div id="site-social-icons"> <a class="social-icon" href="https://github.com/Leishunyu/" target="_blank"><i class="fa fa-github"></i></a><a class="social-icon" href="https://weibo.com/u/2394913967" target="_blank"><i class="fa fa-weibo"></i></a></div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><div class="recent-post-item article-container"><a class="article-title" href="/2019/01/09/2019-01-09-jvm学习笔记/">JVM学习笔记(持续更新)</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2019-01-09</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JVM/">JVM</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JVM/">JVM</a></span><div class="content"><h2 id="JVM"><a href="#JVM" class="headerlink" title="JVM:"></a>JVM:</h2><ul>
 <li>程序计数器:线程私有,切换字节码来进行不同命令的执行,每个线程独立执行</li>
 <li>虚拟机栈:存放编译期可知的基本数据类型和对象引用(对象指针),线程私有</li>
 <li>本地方法栈:虚拟机使用到的native方法的服务,和虚拟机栈类型.由虚拟机厂商自己实现</li>
@@ -17,27 +16,25 @@
 <li>运行时常量池:方法区的一部分,对于常量池没有具体限制的规范,String则是一个很好的例子</li>
 <li>直接内存:不属于JVM,即机器的内存</li>
 </ul>
-<p>##对象内存分配:</p>
-<ul>
+<h2 id="对象内存分配"><a href="#对象内存分配" class="headerlink" title="对象内存分配:"></a>对象内存分配:</h2><ul>
 <li>对象头:对象运行时的数据,hashcode,GC分代年龄,锁状态标识,线程持有的锁,偏向线程ID,偏向时间戳,类型指针(指向元数据的指针,并不是所有对象都有类型指针,如果是数组对象,还应该有存储数据长度的一块数据)</li>
 <li>实例数据:对象真正存储的有效数据,各种字段内容</li>
 <li>对齐填充:不是必然存储,hotspot的自动内存管理要求对象大小必须是8字节的整数倍,而对象头正好是8字节的整数倍,所有实例数据部分如果没有对齐时,就需要通过对齐来自动填充</li>
 </ul>
-<p>##GC算法:</p>
-<ul>
+<h2 id="GC算法"><a href="#GC算法" class="headerlink" title="GC算法:"></a>GC算法:</h2><ul>
 <li>引用计数算法:给对象中添加一个引用计数器,当一个地方引用它时,计时器就加1,当引用失效时,计数器就减1,任何对象的计数器为0时就是不可能再被使用了,但是如果出现了互相引用,但是该对象已经没有被其他任何对象引用,就会导致计数器永远不为0,导致无法gc</li>
-<li>可达性分析算法:通过GC Root作为起点,当一个对象到GC Root没有任何引用链相关时,则证明该对象不可用,将被判断对象不可用<br>##GCRoot的对象包括:</li>
+<li>可达性分析算法:通过GC Root作为起点,当一个对象到GC Root没有任何引用链相关时,则证明该对象不可用,将被判断对象不可用<h2 id="GCRoot的对象包括"><a href="#GCRoot的对象包括" class="headerlink" title="GCRoot的对象包括:"></a>GCRoot的对象包括:</h2></li>
 <li>jvm中引用的对象(int,long,boolean,float,double,byte,char,reference的数据)</li>
 <li>方法区中静态属性引用的对象</li>
 <li>方法区中常量引用的对象(final 的常量值)</li>
-<li>本地方法栈JNI的应用对象(即native方法)<br>##JAVA应用:</li>
+<li>本地方法栈JNI的应用对象(即native方法)<h2 id="JAVA应用"><a href="#JAVA应用" class="headerlink" title="JAVA应用:"></a>JAVA应用:</h2></li>
 <li>强引用:Object obj = new Object()这类引用,只要强引用还存在,垃圾回收器永远不会回收掉被引用的对象</li>
 <li>软引用:用来描述一些还有用但并非必须的对象,对于软引用关联着的对象,在系统将要发生内存溢出异常之前,会将这些对象列入回收范围,并进行二次回收,如果这次回收还是没有足够的内存,才会出现内存溢出的异常,通过SoftReference实现</li>
 <li>弱引用:用来描述非必须对象,强度比软引用要更弱,被弱引用关联的对象只能存活到下一次垃圾回收之前,当垃圾回收器开始工作时,无论当前内存是否足够,都会被回收,通过WeakReference实现</li>
 <li>虚应用:最弱的一种引用关系,一个对象是否设置虚应用,完全不会影响其生存时间,也无法通过虚引用来取得一个对象的实例,设置虚引用唯一的目的就是能在这个对象被回收的时候拿到一个系统通知,通过PhantomReference实现</li>
 </ul>
-<p>##类加载时机:<br>    加载-&gt;验证-&gt;准备-&gt;解析-&gt;初始化-&gt;使用-&gt;卸载</p>
-<blockquote>
+<h2 id="类加载时机"><a href="#类加载时机" class="headerlink" title="类加载时机:"></a>类加载时机:</h2><pre><code>加载-&gt;验证-&gt;准备-&gt;解析-&gt;初始化-&gt;使用-&gt;卸载
+</code></pre><blockquote>
 <p>有且只有5种情况会必须进行初始化</p>
 </blockquote>
 <blockquote>
