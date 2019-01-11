@@ -7,7 +7,26 @@
     error: '复制错误',
     noSupport: '浏览器不支持'
   }
-} </script></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="author-info"><div class="author-info__avatar text-center"><img src="https://avatars3.githubusercontent.com/u/29188508?s=400&amp;u=f3fc60d5b158f5d5a25e5d7a5a26ce394a41435f&amp;v=4"></div><div class="author-info__name text-center">怀风</div><div class="author-info__description text-center">javaer</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">11</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">5</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">6</span></a></div></div></div><nav class="no-bg" id="nav" style="background-image: url(true)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">我的梨子啊</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/archives/">首页</a><a class="site-page" href="/tags">标签</a><a class="site-page" href="/categories">分类</a></span></div><div id="site-info"><div id="site-title">我的梨子啊</div><div id="site-sub-title">那些疯狂到以为自己能够改变世界的人才能真正改变世界</div><div id="site-social-icons"> <a class="social-icon" href="https://github.com/Leishunyu/" target="_blank"><i class="fa fa-github"></i></a><a class="social-icon" href="https://weibo.com/u/2394913967" target="_blank"><i class="fa fa-weibo"></i></a></div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><div class="recent-post-item article-container"><a class="article-title" href="/2019/01/10/2019-01-10-mysql innodb 表相关/">mysql innodb 表相关</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2019-01-10</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/数据库原理/">数据库原理</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/MYSQL/">MYSQL</a></span><div class="content"><h1 id="innodb-表相关知识导图"><a href="#innodb-表相关知识导图" class="headerlink" title="innodb 表相关知识导图"></a>innodb 表相关知识导图</h1><p><img src="/img/表.jpg" alt=""></p>
+} </script></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="author-info"><div class="author-info__avatar text-center"><img src="https://avatars3.githubusercontent.com/u/29188508?s=400&amp;u=f3fc60d5b158f5d5a25e5d7a5a26ce394a41435f&amp;v=4"></div><div class="author-info__name text-center">怀风</div><div class="author-info__description text-center">javaer</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">12</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">5</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">6</span></a></div></div></div><nav class="no-bg" id="nav" style="background-image: url(true)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">我的梨子啊</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/archives/">首页</a><a class="site-page" href="/tags">标签</a><a class="site-page" href="/categories">分类</a></span></div><div id="site-info"><div id="site-title">我的梨子啊</div><div id="site-sub-title">那些疯狂到以为自己能够改变世界的人才能真正改变世界</div><div id="site-social-icons"> <a class="social-icon" href="https://github.com/Leishunyu/" target="_blank"><i class="fa fa-github"></i></a><a class="social-icon" href="https://weibo.com/u/2394913967" target="_blank"><i class="fa fa-weibo"></i></a></div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><div class="recent-post-item article-container"><a class="article-title" href="/2019/01/10/2019-01-10-jvm新生代:老年代/">JVM 新生代/老年代</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2019-01-10</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JVM/">JVM</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JVM/">JVM</a></span><div class="content"><h1 id="JVM-GC-流程图"><a href="#JVM-GC-流程图" class="headerlink" title="JVM GC 流程图"></a>JVM GC 流程图</h1><p><img src="/img/新生代/老年代.jpg" alt="图1"></p>
+<h2 id="新生代"><a href="#新生代" class="headerlink" title="新生代"></a>新生代</h2><blockquote>
+<ul>
+<li>主要是用来存放新生对象,一般占据对的1/3,由于频繁的创建对象,所以新生代会频繁的触发MinorGC进行垃圾回收</li>
+<li>新生代又分为Eden,SurvivorTo,SurvivorForm三个区</li>
+<li>Eden区:JAVA新对象的出生地(如果新创建的对象占用内存很大,就直接分配到老年代),当Eden内存不够时,将触发一次MinorGC,对新生代进行一次回收,Eden占整个新生代的80%</li>
+<li>SurvivorTo(SurvivorForm):保留了一次MinorGC的幸存者,占用新生代的10%</li>
+<li>SurvivorForm(SurvivorTo):上一次MinorGC的幸存者,将和Eden一次参与这一次MinorGC扫描,占用新生代的10%</li>
+<li>MinorGC的过程如果这次GC还幸存下来的对象,将复制到SurvivorTo中, SurvivorTo变成SurvivorForm,SurvivorForm变成SurvivorTo,并将对象年龄+1,这里就采用了标记-复制算法(由于新生代中都是朝生夕灭),如果发现SurvivorForm中的对象达到了老年标准,就把对象移动到老年代,一般年龄默认是15</li>
+</ul>
+</blockquote>
+<h2 id="老年代"><a href="#老年代" class="headerlink" title="老年代"></a>老年代</h2><blockquote>
+<ul>
+<li>老年代主要存放的对象都比较稳定,一般存放的是应用程序中生命周期长的对象,当然也不排除有些朝生夕死的大对象,所以FullGC不会频繁的执行</li>
+<li>一般进行FullGC之前都会触发一次MinorGC,使得新对象晋升到老年代使得老年代内存不足而触发FullGC,或者是大对象直接进入老年代导致老年代内存不足而触发</li>
+<li>FullGC采用标记-整理算法,因为每次GC后会造成大量的内存碎片,造成内存的不连续性,所以FullGC首先会先扫描一遍老年代,标记存活和要回收的对象,然后在进行整理,是存活的对象都移动到一端,最后直接对端边界的内存(回收对象)进行回收</li>
+<li>如果当老年代也装不下的时候就会抛出Out of Memeory(OOM)异常</li>
+</ul>
+</blockquote>
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2019/01/10/2019-01-10-mysql innodb 表相关/">mysql innodb 表相关</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2019-01-10</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/数据库原理/">数据库原理</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/MYSQL/">MYSQL</a></span><div class="content"><h1 id="innodb-表相关知识导图"><a href="#innodb-表相关知识导图" class="headerlink" title="innodb 表相关知识导图"></a>innodb 表相关知识导图</h1><p><img src="/img/表.jpg" alt=""></p>
 </div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2019/01/09/2019-01-09-jvm类加载器/">JVM类加载器</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2019-01-09</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JVM/">JVM</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JVM/">JVM</a></span><div class="content"><h2 id="什么是类加载器"><a href="#什么是类加载器" class="headerlink" title="什么是类加载器"></a>什么是类加载器</h2><blockquote>
 <p>虚拟机用来实现让应用程序自己决定如何去获取所需要的类</p>
 </blockquote>
@@ -357,193 +376,4 @@
 <p>在程序设计中，系统(接口)的隔离是必要的，以此保证业务（代码）的互相依赖，假如说一个程序中JAVA代码和SQL代码完全混合在一起，那么想必一旦程序出现问题，在进行修改，那真的可能改死人，那么如果说一个系统中有N种系统的集成和N中变成语言的集合，那么这个系统大概写好后就改不动了，所以为了保证系统的可维护性，可拓展性，系统隔离是必要的，其实这也是我们常说的业务的解耦对于系统的一种实现，如何在保证系统隔离的同时，又能更方便快捷的集成其它系统呢，那么就出现了DAO，作为程序员，现在市面上流行的框架，中间件很多很多，我们需要对相应的框架以及中间件做一个很清晰的层级划分，清楚的了解到那一部分框架属于整个架构中的哪个模块，才能让我们更快的更有效的更深入的掌握该技术，JAVA是一门面向对象的语言，如果能够清楚的理清我们要学习的东西属于整个系统的那个部分，我们就可以通过之前学习掌握的类似的部分，进行理解，就好比我之前会用JDBC，那么我了解到Redis是属于DAO层，那么我就可以用理解JDBC的形式来理解Jedis，首先要获取一个连接，然后进行…..操作，最后关闭连接，类似的例子还有很多，需要我们再学习中一点点发现</p>
 </blockquote>
 <p><strong>这些些对于程序设计的想法，其实对于所有面向对象语言都是一样的，希望能够大家带来一些帮助</strong></p>
-</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2018/04/07/2018-04-07-sql/">数据库索引优化</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2018-04-07</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/数据库优化/">数据库优化</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/MYSQL/">MYSQL</a></span><div class="content"><hr>
-<p>前言：最近由于项目数据量巨增，对于数据库压力增大，需要从多方面对数据库进行调优，这里就从索引来给大家做下简单分享</p>
-<hr>
-<h2 id="什么是索引-Index"><a href="#什么是索引-Index" class="headerlink" title="什么是索引(Index)"></a>什么是索引(Index)</h2><blockquote>
-<p>这里引用Mysql的官方解释  </p>
-</blockquote>
-<blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;MySQL官方对索引的定义为：索引（Index）是帮助MySQL高效获取数据的数据结构。使用索引的目的在于提高查询效率</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<hr>
-<h2 id="Mysql常用索引"><a href="#Mysql常用索引" class="headerlink" title="Mysql常用索引"></a>Mysql常用索引</h2><blockquote>
-<p>由于Mysql有多种存储引擎(MyISAM、InnoDB、MEMORY)，这里只列出各种存储引擎的特点，不做展开</p>
-</blockquote>
-<p><img src="../../../assets/img/1.png" alt=""></p>
-<blockquote>
-<p><strong>其索引模式为B-Tree和Hash</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;B-Tree索引的时间复杂度是O(log(n))</span><br><span class="line">&gt;</span><br><span class="line">&gt;Hash索引的时间复杂度是O(<span class="number">1</span>)</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p>由此可见如果业务大部分是单条查询，使用Hash索引性能更好</p>
-</blockquote>
-<hr>
-<h2 id="索引创建的几个原则"><a href="#索引创建的几个原则" class="headerlink" title="索引创建的几个原则"></a>索引创建的几个原则</h2><blockquote>
-<p>（1）适合索引的列是出现在WHERE 子句中的列<br>最适合索引的列是出现在WHERE 子句中的列，或连接子句中指定的列，而不是出现在SELECT 关键字后的选择列表中的列。</p>
-</blockquote>
-<blockquote>
-<p>（2）使用唯一索引<br>考虑某列中值的分布。对于惟一值的列，索引的效果最好，而具有多个重复值的列，其索引效果最差。</p>
-</blockquote>
-<blockquote>
-<p><strong>比如删除标识，各种数据状态等</strong></p>
-</blockquote>
-<blockquote>
-<p>（3）使用短索引<br>如果对串列进行索引，应该指定一个前缀长度，只要有可能就应该这样做。例如，如果有一个CHAR(200) 列，如果在前10 个或20 个字符内，多数值是惟一的，那么就不要对整个列进行索引。对前10 个或20 个字符进行索引能够节省大量索引空间，也可能会使查询更快。较小的索引涉及的磁盘I/O 较少，较短的值比较起来更快。更为重要的是，对于较短的键值，索引高速缓存中的块能容纳更多的键值，因此，MySQL也可以在内存中容纳更多的值。这增加 了找到行而不用读取索引中较多块的可能性。</p>
-</blockquote>
-<blockquote>
-<p><strong>比如，1000-1999，这1000个值，第一位都是1，所以这时候可以建立短索引后三位</strong></p>
-</blockquote>
-<blockquote>
-<p>（4）利用最左前缀<br>在创建一个n 列的索引时，实际是创建了MySQL可利用的n 个索引。多列索引可起几个索引的作用，因为可利用索引中最左边的列集来匹配行。这样的列集称为最左前缀。</p>
-</blockquote>
-<blockquote>
-<p><strong>比如，对用户ID，部门ID做了索引，用户ID的搜索次数大于部门ID,那么用户ID索引应该在部门索引的左边，因为用户ID先被索引命中后，就不会在去部门ID的索引中继续搜索了(可参照B-Tree的数据结构来理解)</strong></p>
-</blockquote>
-<blockquote>
-<p>（5）不要过度索引<br>不要以为索引“越多越好”，什么东西都用索引是错的。每个额外的索引都要占用额外的磁盘空间，并降低写操作的性能，这一点我们前面已经介绍 过。在修改表的内容时，索引必须进行更新，有时可能需要重构，因此，索引越多，所花的时间越长。如果有一个索引很少利用或从不使用，那么会不必要地减缓表 的修改速度。此外，MySQL在生成一个执行计划时，要考虑各个索引，这也要费时间。创建多余的索引给查询优化带来了更多的工作。索引太多，也可能会使 MySQL选择不到所要使用的最好索引。只保持所需的索引有利于查询优化。如果想给已索引的表增加索引，应该考虑所要增加的索引是否是现有多列索引的最左 索引。如果是，则就不要费力去增加这个索引了，因为已经有了。</p>
-</blockquote>
-<blockquote>
-<p>（6）考虑在列上进行的比较类型。<br>索引可用于“ &lt;”、“ &lt; = ”、“ = ”、“ &gt; =”、“ &gt; ”和BETWEEN 运算。在模式具有一个直接量前缀时，索引也用于LIKE 运算。如果只将某个列用于其他类型的运算时（如STRCMP( )），对其进行索引没有价值。</p>
-</blockquote>
-<blockquote>
-<p>索引并不是越多越好，索引固然可以提高相应的 select 的效率，但同时也降低了 insert 及 update 的效率，因为 insert 或 update 时有可能会重建索引，所以怎样建索引需要慎重考虑，视具体情况而定。一个表的索引数最好不要超过6个，若太多则应考虑一些不常使用到的列上建的索引是否有必要。</p>
-</blockquote>
-<hr>
-<h2 id="创建索引的时机"><a href="#创建索引的时机" class="headerlink" title="创建索引的时机"></a>创建索引的时机</h2><blockquote>
-<p>（1）什么时候创建索引<br>较频繁地作为查询条件的字段，也就是说最适合索引的列是出现在WHERE 子句中的列，或连接子句中指定的列，而不是出现在SELECT 关键字后的选择列表中的列。</p>
-</blockquote>
-<blockquote>
-<p>（2）什么时候不创建索引</p>
-</blockquote>
-<blockquote>
-<p><strong>表记录太少</strong>：<br>如果一个表只有5条记录，采用索引去访问记录的话，那首先需访问索引表，再通过索引表访问数据表，一般索引表与数据表不在同一个数据块，这种情况下ORACLE至少要往返读取数据块两次。而不用索引的情况下ORACLE会将所有的数据一次读出，处理速度显然会比用索引快。</p>
-</blockquote>
-<blockquote>
-<p><strong>唯一性太差的字段</strong>：如状态字段、类型字段。那些只存储固定几个值的字段，例如用户登录状态、消息的status等。</p>
-</blockquote>
-<!--这个涉及到了索引扫描的特性。例如：通过索引查找键值为A和B的某些数据，通过A找到某条相符合的数据，这条数据在X页上面，然后继续扫描，又发现符合A的数据出现在了Y页上面，那么存储引擎就会丢弃X页面的数据，然后存储Y页面上的数据，一直到查找完所有对应A的数据，然后查找B字段，发现X页面上面又有对应B字段的数据，那么他就会再次扫描X页面，等于X页面就会被扫描2次甚至多次。以此类推，所以同一个数据页可能会被多次重复的读取，丢弃，在读取，这无疑给存储引擎极大地增加了IO的负担。-->
-<blockquote>
-<p><strong>更新太频繁地字段不适合创建索引</strong>：<br>当你为这个字段创建索引时候，当你再次更新这个字段数据时，数据库会自动更新他的索引，所以当这个字段更新太频繁地时候那么就是不断的更新索引。<br>如果一个字段同一个时间段内被更新多次，那么不能为他建立索引。</p>
-</blockquote>
-<hr>
-<h2 id="一些常见的SQL实践"><a href="#一些常见的SQL实践" class="headerlink" title="一些常见的SQL实践"></a>一些常见的SQL实践</h2><blockquote>
-<p><strong>（1）负向条件查询不能使用索引</strong></p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * <span class="keyword">from</span> order where status!=<span class="number">0</span> and stauts!=<span class="number">1</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>not in/not exists都不是好习惯</p>
-</blockquote>
-<blockquote>
-<p>可以优化为in查询：</p>
-</blockquote>
-<blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * <span class="keyword">from</span> order where status <span class="keyword">in</span>(<span class="number">2</span>,<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p><strong>（2）前导模糊查询不能使用索引</strong></p>
-</blockquote>
-<blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * <span class="keyword">from</span> order where desc like <span class="string">'%XX'</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p>而非前导模糊查询则可以：</p>
-</blockquote>
-<blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * <span class="keyword">from</span> order where desc like <span class="string">'XX%'</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p><strong>（3）数据区分度不大的字段不宜使用索引</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * <span class="keyword">from</span> user where sex=<span class="number">1</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p>原因：性别只有男，女，每次过滤掉的数据很少，不宜使用索引。</p>
-</blockquote>
-<blockquote>
-<p>经验上，能过滤80%数据时就可以使用索引。对于订单状态，如果状态值很少，不宜使用索引，如果状态值很多，能够过滤大量数据，则应该建立索引。</p>
-</blockquote>
-<blockquote>
-<p><strong>（4）在属性上进行计算不能命中索引</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * <span class="keyword">from</span> order where YEAR(date) &lt; = <span class="string">'2017'</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p>即使date上建立了索引，也会全表扫描，可优化为值计算：</p>
-</blockquote>
-<blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * <span class="keyword">from</span> order where date &lt; = CURDATE()</span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p>或者：</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * <span class="keyword">from</span> order where date &lt; = <span class="string">'2017-01-01'</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><strong>（5）允许为null的列，查询有潜在大坑</strong></p>
-</blockquote>
-<blockquote>
-<p>单列索引不存null值，复合索引不存全为null的值，如果列允许为null，可能会得到“不符合预期”的结果集</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * <span class="keyword">from</span> user where name != <span class="string">'shenjian'</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>如果name允许为null，索引不存储null值，结果集中不会包含这些记录。所以，请使用not null约束以及默认值。</p>
-</blockquote>
-<blockquote>
-<p><strong>（6）复合索引最左前缀，并不是值SQL语句的where顺序要和复合索引一致</strong></p>
-</blockquote>
-<blockquote>
-<p>用户中心建立了(login_name, passwd)的复合索引</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * <span class="keyword">from</span> user where login_name=? and passwd=?</span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * <span class="keyword">from</span> user where passwd=? and login_name=?</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>都能够命中索引</p>
-</blockquote>
-<blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * <span class="keyword">from</span> user where login_name=?</span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p>也能命中索引，满足复合索引最左前缀</p>
-</blockquote>
-<blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * <span class="keyword">from</span> user where passwd=?</span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p>不能命中索引，不满足复合索引最左前缀</p>
-</blockquote>
-<blockquote>
-<p><strong>（7）使用ENUM而不是字符串</strong></p>
-</blockquote>
-<blockquote>
-<p>ENUM保存的是TINYINT，别在枚举中搞一些“中国”“北京”“技术部”这样的字符串，字符串空间又大，效率又低。</p>
-</blockquote>
-<blockquote>
-<p><strong>（8）如果明确知道只有一条结果返回，limit 1能够提高效率</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * <span class="keyword">from</span> user where login_name=?</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<blockquote>
-<p>可以优化为：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * <span class="keyword">from</span> user where login_name=? limit <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<blockquote>
-<p>原因：</p>
-</blockquote>
-<blockquote>
-<p>你知道只有一条结果，但数据库并不知道，明确告诉它，让它主动停止游标移动</p>
-</blockquote>
-<blockquote>
-<p><strong>（9）把计算放到业务层而不是数据库层，除了节省数据的CPU，还有意想不到的查询缓存优化效果</strong></p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * <span class="keyword">from</span> order where date &lt; = CURDATE()</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>这不是一个好的SQL实践，应该优化为：</p>
-</blockquote>
-<blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$curDate = date(<span class="string">'Y-m-d'</span>);</span><br><span class="line">$res = mysql_query(</span><br><span class="line">	<span class="string">'select * from order where date &lt; = $curDate'</span></span><br><span class="line">	);</span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p>原因：</p>
-</blockquote>
-<blockquote>
-<p>释放了数据库的CPU</p>
-</blockquote>
-<blockquote>
-<p>多次调用，传入的SQL相同，才可以利用查询缓存</p>
-</blockquote>
 </div><hr></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2018 - 2019 By 怀风</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv"><i class="fa fa-user"></i><span id="busuanzi_value_site_uv"></span><span></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i><span id="busuanzi_value_site_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="/js/third-party/anime.min.js"></script><script src="/js/third-party/jquery.min.js"></script><script src="/js/third-party/jquery.fancybox.min.js"></script><script src="/js/third-party/velocity.min.js"></script><script src="/js/third-party/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.5.6"></script><script src="/js/fancybox.js?version=1.5.6"></script><script src="/js/sidebar.js?version=1.5.6"></script><script src="/js/copy.js?version=1.5.6"></script><script src="/js/fireworks.js?version=1.5.6"></script><script src="/js/transition.js?version=1.5.6"></script><script src="/js/scroll.js?version=1.5.6"></script><script src="/js/head.js?version=1.5.6"></script></body></html>
