@@ -12,7 +12,37 @@
 <li>为了线程之间更高效的共享数据,以及解决竞争问题,在JDK1.5之后,对锁进行了大量的优化,由此衍生出(自适应)自旋锁/轻量级锁/偏向级锁/锁消除/锁粗化等技术</li>
 </ul>
 </blockquote>
-<h2 id="锁消除"><a href="#锁消除" class="headerlink" title="锁消除"></a>锁消除</h2><h2 id="锁粗化"><a href="#锁粗化" class="headerlink" title="锁粗化"></a>锁粗化</h2><h2 id="自旋锁-自适应自旋锁"><a href="#自旋锁-自适应自旋锁" class="headerlink" title="自旋锁/自适应自旋锁"></a>自旋锁/自适应自旋锁</h2><h2 id="轻量级锁"><a href="#轻量级锁" class="headerlink" title="轻量级锁"></a>轻量级锁</h2><h2 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h2></div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2019/01/11/2019-01-11-jvm对象在内存中的存储/">JVM 对象在内存中的存储</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2019-01-11</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JVM/">JVM</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JVM/">JVM</a></span><div class="content"><h1 id="对象在内存中的存储"><a href="#对象在内存中的存储" class="headerlink" title="对象在内存中的存储"></a>对象在内存中的存储</h1><blockquote>
+<h2 id="锁消除"><a href="#锁消除" class="headerlink" title="锁消除"></a>锁消除</h2><blockquote>
+<ul>
+<li>锁消除是指虚拟机即时编译器在运行时,对一些代码上的同步要求,检测到是不可能存在共享数据竞争的,这时就会对锁进行清除,这里就好比我们去火车站买票需要排队,为了保证秩序,一般都会有一些围挡限制值人,但是现在不是高峰期,发现根本不需要做一些围栏来限制秩序,这个时候车站安保人员就会把围栏撤掉,这里这个围挡就相当于我们的锁,会根据实际情况来进行判断</li>
+<li>锁消除主要源于逃逸分析的数据支持,如果判断一段代码中,堆上的所有数据都不会逃逸出去被其他线程访问,那么可以把它当做栈上数据来对台,认为他是线程私有的,那么就不用加锁了</li>
+<li>要注意的是,不仅仅是我们在开发中手动加的锁,在有些场景中,同步代码也是普遍存在的</li>
+</ul>
+</blockquote>
+<blockquote>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">concat</span><span class="params">(String s1,String s2,String s3)</span></span>&#123;</span><br><span class="line">   <span class="keyword">return</span> s1 + s2 + s3 ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>我们知道,由于String是一个不可变类,对字符串的操作是转换成新的String对象来进行的,在jdk1.5及以前的版本,这个字符串拼接会被javac编译成</li>
+</ul>
+</blockquote>
+<blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//javac编译后</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">concat</span><span class="params">(String s1,String s2,String s3)</span></span>&#123;</span><br><span class="line">	StringBuffer sb = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">	sb.append(s1);</span><br><span class="line">	sb.append(s2);</span><br><span class="line">	sb.append(s3);</span><br><span class="line">   <span class="keyword">return</span> sb.toString();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//StringBuffer的append方法</span></span><br><span class="line">  	<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> StringBuffer <span class="title">append</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">       toStringCache = <span class="keyword">null</span>;</span><br><span class="line">       <span class="keyword">super</span>.append(str);</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<ul>
+<li>但是我们看到StringBuffer的append方法是一个同步方法,但是在该方法中,并不需要加锁,所以在jdk1.5以后的版本, StringBuffer会被优化成StringBuilder,而StringBuilder是不加锁的</li>
+</ul>
+</blockquote>
+<h2 id="锁粗化"><a href="#锁粗化" class="headerlink" title="锁粗化"></a>锁粗化</h2><blockquote>
+<ul>
+<li>一般我们在开发过程中,推荐将同步块的作用域限制的尽量小,最好是只在共享数据的实际操作的作用域加锁,这样使得需要同步的操作数量尽可能小,如果存在锁竞争,那等待的线程也能够尽快拿到锁</li>
+<li>在大部分情况中上述原则是正确的,但是如果一些列连续都操作都是对同一个对象进行反复的加锁解锁操作,甚至在循环中出现这样的问题,那样既是没有线程的竞争,也会频繁的触发互斥同步的操作,对性能是有巨大损耗的</li>
+<li>如何解决这类问题呢,那么就是锁粗化,顾名思义,就是将细粒度的锁变成粗粒度的锁,如果虚拟机探测到有这样一系列零零碎碎的操作都对同一个对象加锁,会把这个锁同步范围扩大到整个操作序列的外部,以上面的concat方法为例,把原来每个append方法上的锁变成对concat方法的锁</li>
+</ul>
+</blockquote>
+<h2 id="自旋锁-自适应自旋锁"><a href="#自旋锁-自适应自旋锁" class="headerlink" title="自旋锁/自适应自旋锁"></a>自旋锁/自适应自旋锁</h2><h2 id="轻量级锁"><a href="#轻量级锁" class="headerlink" title="轻量级锁"></a>轻量级锁</h2><h2 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h2></div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2019/01/11/2019-01-11-jvm对象在内存中的存储/">JVM 对象在内存中的存储</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2019-01-11</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JVM/">JVM</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JVM/">JVM</a></span><div class="content"><h1 id="对象在内存中的存储"><a href="#对象在内存中的存储" class="headerlink" title="对象在内存中的存储"></a>对象在内存中的存储</h1><blockquote>
 <ul>
 <li>如图1,可以看到一个对象在JVM内存中是如何存储的</li>
 </ul>
