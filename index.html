@@ -71,8 +71,12 @@
 </ul>
 </blockquote>
 <h2 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h2><blockquote>
+<p><img src="/img/偏向锁.jpg" alt="偏向锁"></p>
 <ul>
-<li></li>
+<li>偏向锁和轻量级锁类似,也是对于MarkWord的一系列操作,顾名思义,偏向锁,是指偏向某一个线程的锁,偏向锁会偏向第一个获取他的线程,如果在接下来的执行当中都没有其他线程获取,那么持有偏向锁的线程将永远不用在进行同步</li>
+<li>当锁第一次被对象获取时,在将锁标识为”01”,即偏向锁模式,然后使用CAS操作把线程ID记录到MarkWord中,如果更新成功,持有偏向锁的线程,每次进入同步块时都不需要重新加锁</li>
+<li>当有另一个线程尝试获得锁时,偏向模式宣告结束,根据锁对象目前是否处于被锁定的状态,决定撤销偏向,还是升级到轻量级锁</li>
+<li>偏向锁可以提高带有同步但是无竞争的程序性能,同样是有利有弊,如果程序中大部分锁是要被多个不同线程访问,偏向锁肯定是有负担的</li>
 </ul>
 </blockquote>
 </div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2019/01/11/2019-01-11-jvm对象在内存中的存储/">JVM 对象在内存中的存储</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2019-01-11</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JVM/">JVM</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JVM/">JVM</a></span><div class="content"><h1 id="对象在内存中的存储"><a href="#对象在内存中的存储" class="headerlink" title="对象在内存中的存储"></a>对象在内存中的存储</h1><blockquote>
