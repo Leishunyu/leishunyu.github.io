@@ -7,7 +7,12 @@
     error: '复制错误',
     noSupport: '浏览器不支持'
   }
-} </script></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="author-info"><div class="author-info__avatar text-center"><img src="https://avatars3.githubusercontent.com/u/29188508?s=400&amp;u=f3fc60d5b158f5d5a25e5d7a5a26ce394a41435f&amp;v=4"></div><div class="author-info__name text-center">怀风</div><div class="author-info__description text-center">javaer</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">13</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">5</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">6</span></a></div></div></div><nav class="no-bg" id="nav" style="background-image: url(true)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">我的梨子啊</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/archives/">首页</a><a class="site-page" href="/tags">标签</a><a class="site-page" href="/categories">分类</a></span></div><div id="site-info"><div id="site-title">我的梨子啊</div><div id="site-sub-title">那些疯狂到以为自己能够改变世界的人才能真正改变世界</div><div id="site-social-icons"> <a class="social-icon" href="https://github.com/Leishunyu/" target="_blank"><i class="fa fa-github"></i></a><a class="social-icon" href="https://weibo.com/u/2394913967" target="_blank"><i class="fa fa-weibo"></i></a></div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><div class="recent-post-item article-container"><a class="article-title" href="/2019/01/11/2019-01-11-jvm对象在内存中的存储/">JVM 对象在内存中的存储</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2019-01-11</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JVM/">JVM</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JVM/">JVM</a></span><div class="content"><h1 id="对象在内存中的存储"><a href="#对象在内存中的存储" class="headerlink" title="对象在内存中的存储"></a>对象在内存中的存储</h1><blockquote>
+} </script></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar"><div class="author-info"><div class="author-info__avatar text-center"><img src="https://avatars3.githubusercontent.com/u/29188508?s=400&amp;u=f3fc60d5b158f5d5a25e5d7a5a26ce394a41435f&amp;v=4"></div><div class="author-info__name text-center">怀风</div><div class="author-info__description text-center">javaer</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">14</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">5</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">6</span></a></div></div></div><nav class="no-bg" id="nav" style="background-image: url(true)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">我的梨子啊</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus"><a class="site-page" href="/archives/">首页</a><a class="site-page" href="/tags">标签</a><a class="site-page" href="/categories">分类</a></span></div><div id="site-info"><div id="site-title">我的梨子啊</div><div id="site-sub-title">那些疯狂到以为自己能够改变世界的人才能真正改变世界</div><div id="site-social-icons"> <a class="social-icon" href="https://github.com/Leishunyu/" target="_blank"><i class="fa fa-github"></i></a><a class="social-icon" href="https://weibo.com/u/2394913967" target="_blank"><i class="fa fa-weibo"></i></a></div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><div class="recent-post-item article-container"><a class="article-title" href="/2019/01/19/2019-01-19-锁优化/">JVM 锁优化</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2019-01-19</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JVM/">JVM</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JVM/">JVM</a></span><div class="content"><h1 id="什么是锁优化"><a href="#什么是锁优化" class="headerlink" title="什么是锁优化"></a>什么是锁优化</h1><blockquote>
+<ul>
+<li>为了线程之间更高效的共享数据,以及解决竞争问题,在JDK1.5之后,对锁进行了大量的优化,由此衍生出(自适应)自旋锁/轻量级锁/偏向级锁/锁消除/锁粗化等技术</li>
+</ul>
+</blockquote>
+<h2 id="锁消除"><a href="#锁消除" class="headerlink" title="锁消除"></a>锁消除</h2><h2 id="锁粗化"><a href="#锁粗化" class="headerlink" title="锁粗化"></a>锁粗化</h2><h2 id="自旋锁-自适应自旋锁"><a href="#自旋锁-自适应自旋锁" class="headerlink" title="自旋锁/自适应自旋锁"></a>自旋锁/自适应自旋锁</h2><h2 id="轻量级锁"><a href="#轻量级锁" class="headerlink" title="轻量级锁"></a>轻量级锁</h2><h2 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h2></div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2019/01/11/2019-01-11-jvm对象在内存中的存储/">JVM 对象在内存中的存储</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2019-01-11</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JVM/">JVM</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JVM/">JVM</a></span><div class="content"><h1 id="对象在内存中的存储"><a href="#对象在内存中的存储" class="headerlink" title="对象在内存中的存储"></a>对象在内存中的存储</h1><blockquote>
 <ul>
 <li>如图1,可以看到一个对象在JVM内存中是如何存储的</li>
 </ul>
@@ -31,7 +36,6 @@
 <li>不是必然存储,hotspot的自动内存管理要求对象大小必须是8字节的整数倍,而对象头正好是8字节的整数倍,所有实例数据部分如果没有对齐时,就需要通过对齐来自动填充</li>
 </ul>
 </blockquote>
-</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2019/01/10/2019-01-10-mysql innodb 表相关/">mysql innodb 表相关</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2019-01-10</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/数据库原理/">数据库原理</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/MYSQL/">MYSQL</a></span><div class="content"><h1 id="innodb-表相关知识导图"><a href="#innodb-表相关知识导图" class="headerlink" title="innodb 表相关知识导图"></a>innodb 表相关知识导图</h1><p><img src="/img/表.jpg" alt=""></p>
 </div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2019/01/10/2019-01-10-jvm新生代:老年代/">JVM 新生代/老年代</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2019-01-10</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JVM/">JVM</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JVM/">JVM</a></span><div class="content"><h1 id="JVM-GC-流程图"><a href="#JVM-GC-流程图" class="headerlink" title="JVM GC 流程图"></a>JVM GC 流程图</h1><p><img src="/img/新生代-老年代.jpg" alt="图1"></p>
 <h2 id="新生代"><a href="#新生代" class="headerlink" title="新生代"></a>新生代</h2><blockquote>
 <ul>
@@ -51,6 +55,7 @@
 <li>如果当老年代也装不下的时候就会抛出Out of Memeory(OOM)异常</li>
 </ul>
 </blockquote>
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2019/01/10/2019-01-10-mysql innodb 表相关/">mysql innodb 表相关</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2019-01-10</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/数据库原理/">数据库原理</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/MYSQL/">MYSQL</a></span><div class="content"><h1 id="innodb-表相关知识导图"><a href="#innodb-表相关知识导图" class="headerlink" title="innodb 表相关知识导图"></a>innodb 表相关知识导图</h1><p><img src="/img/表.jpg" alt=""></p>
 </div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2019/01/09/2019-01-09-jvm类加载器/">JVM类加载器</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2019-01-09</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JVM/">JVM</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JVM/">JVM</a></span><div class="content"><h2 id="什么是类加载器"><a href="#什么是类加载器" class="headerlink" title="什么是类加载器"></a>什么是类加载器</h2><blockquote>
 <p>虚拟机用来实现让应用程序自己决定如何去获取所需要的类</p>
 </blockquote>
@@ -319,67 +324,4 @@
 <li>由于ExtensionLoader中执行比较绕,这里根据ExtensionLoader的执行流程画了一个流程图供大家参考,具体信息还需要大家根据自己跟进源码,进一步深入理解</li>
 </ul>
 <p><img src="/img/dubbo-spi.png" alt=""></p>
-</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2018/11/18/2018-11-30-mysql insertBuffer/">Mysql Insert Buffer</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2018-11-18</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/数据库原理/">数据库原理</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/MYSQL/">MYSQL</a></span><div class="content"><p>#Insert Buffer </p>
-<p><strong>insert buffer 的架构</strong></p>
-<blockquote>
-<p><img src="/img/%E5%9B%BE%E7%89%87.png" alt=""><br><strong>什么是insert Buffer</strong></p>
-<ul>
-<li>用来提升插入性能(先插入缓存,最后合并,避免非顺序插入造成磁盘离散查询,性能很差)</li>
-<li>表的主键是id，id列式自增长的，即当执行插入操作时，id列会自动增长，页中行记录按id顺序存放，不需要随机读取其它页的数据。因此，在这样的情况下（即聚集索引），插入操作效率很高。(不过对于UUID这类型的主键插入也可能是离散的,所以不推荐使用UUID做主键)</li>
-<li>除了主键聚合索引外，还产生了一个name列的辅助索引，对于该非聚集索引来说，叶子节点的插入不再有序，这时就需要离散访问非聚集索引页，插入性能变低。</li>
-</ul>
-</blockquote>
-<p><strong>什么情况下使用insert Buffer</strong></p>
-<blockquote>
-<ul>
-<li>索引是辅助索引</li>
-<li>索引不是唯一的(如果索引是唯一的,那么插入时需要检验索引的唯一性,还是会直接进行离散IO查询.导致insert Buffer失效)</li>
-</ul>
-</blockquote>
-<p><strong>什么是change Buffer</strong></p>
-<blockquote>
-<ul>
-<li>类似insert buffer,针对于更新和删除操作</li>
-</ul>
-<blockquote>
-<ul>
-<li>1.缓存中标记删除</li>
-<li>2.文件中真正删除</li>
-</ul>
-</blockquote>
-</blockquote>
-<p><strong>insert Buffer内部实现</strong></p>
-<blockquote>
-<p>insert buffer的数据结构是一棵B+树。在MySQL4.1之前的版本中每张表都有一棵insert buffer B+树。而在现在的版本中，全局只有一棵insert buffer B+树，负责对所有的表的辅助索引进行 insert buffer。这棵B+树存放在共享表空间中，默认也就是ibdata1中。因此，试图通过独立表空间ibd文件恢复表中数据时，往往会导致check table 失败。这是因为表的辅助索引中的数据可能还在insert buffer中，也就是共享表空间中。所以通过idb文件进行恢复后，还需要进行repair table 操作来重建表上所有的辅助索引。</p>
-</blockquote>
-<blockquote>
-<p>insert buffer是一棵B+树，因此其也由叶子节点和非叶子节点组成。非叶子节点存放的是查询的search key（键值）。其构造包括三个字段：space | marker | offset|</p>
-</blockquote>
-<blockquote>
-<p>search key一共占9字节，其中space占4字节，marker占1字节、offset占4字节。space表示待插入记录所在的表空间id，在InnoDB存储引擎中，每个表有一个唯一的space id，可以通过space id查询得知是哪张表。marker是用来兼容老版本的insert buffer。offset表示页所在的偏移量。</p>
-</blockquote>
-<blockquote>
-<p>当一个辅助索引需要插入到页（space， offset）时，如果这个页不在缓冲池中，那么InnoDB存储引擎首先根据上述规则构造一个search key，接下来查询insert buffer这棵B+树，然后再将这条记录插入到insert buffer B+树的叶子节点中。</p>
-</blockquote>
-<blockquote>
-<p>对于插入到insert buffer B+树叶子节点的记录，需要根据如下规则进行构造：space | marker | offset | metadata | secondary index record|</p>
-</blockquote>
-<blockquote>
-<p>启用insert buffer索引后，辅助索引页（space、page_no）中的记录可能被插入到insert buffer B+树中，所以为了保证每次merge insert buffer页必须成功，还需要有一个特殊的页来标记每个辅助索引页（space、page_no）的可用空间。这个页的类型为insert buffer bitmap。</p>
-</blockquote>
-<p><strong>何时将缓存合并到文件中去</strong></p>
-<blockquote>
-<ul>
-<li>辅助索引页被读取到缓冲池时；(索引页被查询的时候,相当于多次插入修改删除的合并)</li>
-<li>insert buffer bitmap页追踪到该辅助索引页已无可用空间时(缓存池不够)</li>
-<li>master thread(每10S或者每秒)</li>
-</ul>
-</blockquote>
-<p><strong>insert buffer带来的问题</strong></p>
-<blockquote>
-<ul>
-<li>可能导致数据库宕机后实例恢复时间变长。如果应用程序执行大量的插入和更新操作，且涉及非唯一的聚集索引，一旦出现宕机，这时就有大量内存中的插入缓冲区数据没有合并至索引页中，导致实例恢复时间会很长。</li>
-<li>在写密集的情况下，插入缓冲会占用过多的缓冲池内存（innodb_buffer_pool），默认情况下最大可以占用1/2，这在实际应用中会带来一定的问题。</li>
-</ul>
-</blockquote>
 </div><hr></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2018 - 2019 By 怀风</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv"><i class="fa fa-user"></i><span id="busuanzi_value_site_uv"></span><span></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i><span id="busuanzi_value_site_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="/js/third-party/anime.min.js"></script><script src="/js/third-party/jquery.min.js"></script><script src="/js/third-party/jquery.fancybox.min.js"></script><script src="/js/third-party/velocity.min.js"></script><script src="/js/third-party/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.5.6"></script><script src="/js/fancybox.js?version=1.5.6"></script><script src="/js/sidebar.js?version=1.5.6"></script><script src="/js/copy.js?version=1.5.6"></script><script src="/js/fireworks.js?version=1.5.6"></script><script src="/js/transition.js?version=1.5.6"></script><script src="/js/scroll.js?version=1.5.6"></script><script src="/js/head.js?version=1.5.6"></script></body></html>
