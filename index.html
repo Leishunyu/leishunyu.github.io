@@ -65,7 +65,7 @@
 <ul>
 <li>轻量级锁也是jdk1.6之后引入的新型锁机制,轻量级是相对于使用操作系统的互斥量来实现的传统锁而言,因此传统的锁机制就被称为重量级锁,这里要强调一点的是,轻量级锁不是用来代替重量级锁的,它的本意是避免在没有锁竞争的情况下,使用重量级锁造成的资源浪费</li>
 <li>说到轻量级锁,首先要了解对象头的内容<a href="http://blog.leishunyu.com/2019/01/11/2019-01-11-jvm%E5%AF%B9%E8%B1%A1%E5%9C%A8%E5%86%85%E5%AD%98%E4%B8%AD%E7%9A%84%E5%AD%98%E5%82%A8/">对象在JVM中的储存</a>,对象在没有进入同步块的时候,如果此同步对象没有被锁定(锁标识为”01”的状态), jvm将在栈中建立一个LockRecord的空间,用于存储当前对象MarkWord的拷贝(Displaced MarkWord),如上图所示,然后虚拟机将使用CAS操作尝试对对象头的MarkWord更新为指向LockRecord的指针,如果更新成功,则对象拥有对该对象的锁,并且将锁标识转变成”00”</li>
-<li>如果更新失败了,jvm会首先检查对象的MarkWord是否指向当前的栈,如果指向当前线程的栈,则说明已经获得锁,那就可以进入同步块去执行,如果没有指向,则说明当前线程已经被其他线程抢占了,如果有两条以上的线程去争夺同一个锁,那么轻量级锁就会失效,膨胀为重量级锁,锁标识的状态值也会变为”10”, MarkWord指向的就是重量级锁(互斥量的指针),后面等待锁的线程也要进入阻塞状态</li>
+<li>如果更新失败了,jvm会首先检查对象的MarkWord是否指向当前的栈,如果指向当前线程的栈,则说明已经获得锁,那就可以进入同步块去执行,如果没有指向,则说明当前线程的锁已经被其他线程抢占了,如果有两条以上的线程去争夺同一个锁,那么轻量级锁就会失效,膨胀为重量级锁,锁标识的状态值也会变为”10”, MarkWord指向的就是重量级锁(互斥量的指针),后面等待锁的线程也要进入阻塞状态</li>
 <li>轻量级锁解锁也是通过CAS进行的,如果对象的MarkWord仍然指向着线程的锁记录,那就用CAS把对象当前的MarkWord替换回来,如果替换成功,说明整个同步过程就完成了,如果替换失败,说明其他线程尝试获取过锁,那么在释放锁的时候还要唤起其他被挂起的线程</li>
 <li>轻量级锁提升性能的依据在于,对于大部分的锁,在整个同步周期内都是不存在竞争的,这只是一个经验数据,如果没有竞争,轻量级锁使用CAS操作避免了使用互斥线程的开销,但是如果存在竞争,那么除了互斥开销外,还有CAS的开销,在有竞争的情况下,轻量级锁会比传统的重量级锁更慢</li>
 </ul>
@@ -103,6 +103,7 @@
 <li>不是必然存储,hotspot的自动内存管理要求对象大小必须是8字节的整数倍,而对象头正好是8字节的整数倍,所有实例数据部分如果没有对齐时,就需要通过对齐来自动填充</li>
 </ul>
 </blockquote>
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2019/01/10/2019-01-10-mysql innodb 表相关/">mysql innodb 表相关</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2019-01-10</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/数据库原理/">数据库原理</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/MYSQL/">MYSQL</a></span><div class="content"><h1 id="innodb-表相关知识导图"><a href="#innodb-表相关知识导图" class="headerlink" title="innodb 表相关知识导图"></a>innodb 表相关知识导图</h1><p><img src="/img/表.jpg" alt=""></p>
 </div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2019/01/10/2019-01-10-jvm新生代:老年代/">JVM 新生代/老年代</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2019-01-10</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JVM/">JVM</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JVM/">JVM</a></span><div class="content"><h1 id="JVM-GC-流程图"><a href="#JVM-GC-流程图" class="headerlink" title="JVM GC 流程图"></a>JVM GC 流程图</h1><p><img src="/img/新生代-老年代.jpg" alt="图1"></p>
 <h2 id="新生代"><a href="#新生代" class="headerlink" title="新生代"></a>新生代</h2><blockquote>
 <ul>
@@ -122,7 +123,6 @@
 <li>如果当老年代也装不下的时候就会抛出Out of Memeory(OOM)异常</li>
 </ul>
 </blockquote>
-</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2019/01/10/2019-01-10-mysql innodb 表相关/">mysql innodb 表相关</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2019-01-10</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/数据库原理/">数据库原理</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/MYSQL/">MYSQL</a></span><div class="content"><h1 id="innodb-表相关知识导图"><a href="#innodb-表相关知识导图" class="headerlink" title="innodb 表相关知识导图"></a>innodb 表相关知识导图</h1><p><img src="/img/表.jpg" alt=""></p>
 </div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="/2019/01/09/2019-01-09-jvm类加载器/">JVM类加载器</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2019-01-09</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/JVM/">JVM</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/JVM/">JVM</a></span><div class="content"><h2 id="什么是类加载器"><a href="#什么是类加载器" class="headerlink" title="什么是类加载器"></a>什么是类加载器</h2><blockquote>
 <p>虚拟机用来实现让应用程序自己决定如何去获取所需要的类</p>
 </blockquote>
