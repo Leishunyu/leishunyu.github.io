@@ -15,19 +15,18 @@
 </blockquote>
 <h2 id="ServiceConfig中exportLocal的问题"><a href="#ServiceConfig中exportLocal的问题" class="headerlink" title="ServiceConfig中exportLocal的问题"></a>ServiceConfig中exportLocal的问题</h2><blockquote>
 <ul>
-<li><img src="/img/dubbo-localcall.png" alt=""></li>
+<li><img src="/img/dubbo-localcall.jpg" alt=""></li>
 <li>如图,可以看到框中红线代码对我们配置中的协议做了判断,如果不是injvm协议,则构建一个injvm的的URL进行本地服务的暴露,那么问题来了,如果我们指定了injvm协议的话,这块将不会执行,那也就无法进行本地服务的暴露了,当然我们一般不会使用injvm协议进行本地调用,所以从dubbo开源到现在,这个问题也就没有被大家所发现,去掉这个判断逻辑便解决问题</li>
 <li>这块代码曾经在学习服务暴露的时候有过疑问,但是没有过于深究,直到看到这个issue的时候才恍然大悟,其实也反映出自己在学习框架源码过程中,对于一些细节有疑问但是却有惯性思维,觉得那么多人都看过这里,是自己理解错了吧的想法没有去仔细思考,学习还是需要带着自己的思想抱着一股打破砂锅问到底的劲才行</li>
 </ul>
 </blockquote>
 <h2 id="ServiceConfig中doExportUrls的问题"><a href="#ServiceConfig中doExportUrls的问题" class="headerlink" title="ServiceConfig中doExportUrls的问题"></a>ServiceConfig中doExportUrls的问题</h2><blockquote>
 <ul>
-<li><img src="/img/dubbo-localregistry.png" alt=""></li>
+<li><img src="/img/dubbo-localregistry.jpg" alt=""></li>
 <li>如图,可以看到在往注册中心注册服务的时候,新增了如果是injvm协议,则跳出循环的判断,因为dubbo支持多注册中心,所以该判断不能再服务注册前过滤,在历史版本中,如果采用injvm协议,也会使该协议注册到registry上,这个显然是没有必要的</li>
 </ul>
 </blockquote>
-<p>##总结</p>
-<blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><blockquote>
 <ul>
 <li>这两个问题都是很细微的问题,但是也反应出我们在平时编码中对细节的把控,已经对问题考虑的全面性,在学习的时候也同样要把控细节,不是说看看别人博客怎么写,自己就怎么想,源码学习应该有自己的思索</li>
 </ul>
